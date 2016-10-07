@@ -1,11 +1,23 @@
+class StrikeFrameScorer
+  def self.score(rolls)
+    return [:match, rolls.reduce(0, :+) + rolls.drop(1).reduce(0, :+)] if rolls.first == 10 && rolls.count == 3
+    [:no_match, 0]
+  end
+end
+
+class OpenFrameScorer
+  def self.score(rolls)
+    return [:match, rolls.reduce(0, :+)] if rolls.first != 10 && rolls.count == 2
+    [:no_match, 0]
+  end
+end
+
 class FrameScorer
   def self.score(rolls)
-    if rolls.first == 10
-      return [:match, rolls.reduce(0, :+) + rolls.drop(1).reduce(0, :+)] if rolls.count == 3
-    else
-      return [:match, rolls.reduce(0, :+)] if rolls.count == 2
-    end
-    [:no_match, 0]
+    [StrikeFrameScorer, OpenFrameScorer]
+      .map { |scorer| scorer.score(rolls) }
+      .select { |matched, frame_score| matched == :match }
+      .first || [:no_match, 0]
   end
 end
 
