@@ -8,7 +8,12 @@ class Frame
     @rolls.push(pins)
 
     # open frame all the time
-    return Frame.new(score: @score + @rolls.reduce(0, :+)) if @rolls.count == 2
+    if @rolls.first == 10
+      return Frame.new(score: @score + @rolls.reduce(0, :+) + @rolls.drop(1).reduce(0, :+)) if @rolls.count == 3
+    else
+      return Frame.new(score: @score + @rolls.reduce(0, :+)) if @rolls.count == 2
+    end
+
     self
   end
 
