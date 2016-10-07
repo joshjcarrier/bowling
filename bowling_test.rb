@@ -14,7 +14,6 @@ class GameTest < Minitest::Test
   end
 
   def test_must_have_a_score
-    skip
     assert_respond_to @game, :score
   end
 
