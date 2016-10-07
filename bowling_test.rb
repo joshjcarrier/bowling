@@ -25,7 +25,6 @@ class GameTest < Minitest::Test
   end
 
   def test_should_be_able_to_score_multiple_frames
-    skip
     [3, 4, 2, 3, 5, 2].each do |pins|
       @game.roll pins
     end
@@ -34,19 +33,16 @@ class GameTest < Minitest::Test
   end
 
   def test_should_score_a_game_with_all_gutterballs
-    skip
     roll_n_times(20, 0)
     assert_equal 0, @game.score
   end
 
   def test_should_score_a_game_with_all_single_pin_rolls
-    skip
     roll_n_times(20, 1)
     assert_equal 20, @game.score
   end
 
   def test_should_allow_game_with_all_open_frames
-    skip
     roll_n_times(10, [3, 6])
     assert_equal 90, @game.score
   end
