@@ -1,3 +1,14 @@
+class FrameScorer
+  def self.score(rolls)
+    if rolls.first == 10
+      return [:match, rolls.reduce(0, :+) + rolls.drop(1).reduce(0, :+)] if rolls.count == 3
+    else
+      return [:match, rolls.reduce(0, :+)] if rolls.count == 2
+    end
+    [:no_match, 0]
+  end
+end
+
 class Frame
   def initialize(score: 0)
     @score = score
@@ -7,13 +18,8 @@ class Frame
   def roll(pins)
     @rolls.push(pins)
 
-    # open frame all the time
-    if @rolls.first == 10
-      return Frame.new(score: @score + @rolls.reduce(0, :+) + @rolls.drop(1).reduce(0, :+)) if @rolls.count == 3
-    else
-      return Frame.new(score: @score + @rolls.reduce(0, :+)) if @rolls.count == 2
-    end
-
+    matched, frame_score = FrameScorer.score(@rolls)
+    return Frame.new(score: @score + frame_score) if matched == :match
     self
   end
 

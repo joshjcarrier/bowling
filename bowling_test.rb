@@ -48,7 +48,6 @@ class GameTest < Minitest::Test
   end
 
   def test_should_correctly_score_a_strike_that_is_not_on_the_last_frame
-    skip
     @game.roll(10)
     @game.roll(5)
     @game.roll(3)
