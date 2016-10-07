@@ -18,7 +18,6 @@ class GameTest < Minitest::Test
   end
 
   def test_should_be_able_to_score_open_frame
-    skip
     @game.roll(3)
     @game.roll(4)
     roll_n_times(18, 0)
